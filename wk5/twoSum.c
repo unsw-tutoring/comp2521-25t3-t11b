@@ -19,8 +19,21 @@ bool hasTwoSum(int *arr, int n, int sum) {
     return false;
 }
 
-// use a binary search tree
+// use a binary search tree  -- O(n log n)
+// [1,2,3,4] 8
+// space complexity = O(n)
 bool hasTwoSum(int *arr, int n, int sum) {
-    // TODO
+    BSTree bst = BSTNew();  // O(1)
+
+    for (int i = 0; i < n; i++) {            // runs O(n) times
+        if (BSTSearch(bst, sum - arr[i])) {  // O(log n)
+            BSTFree(bst);                    // O(n)
+            return true;
+        }
+
+        BSTInsert(bst, arr[i]);  // O(log n)
+    }
+
+    BSTFree(bst);  // O(n)
     return false;
 }
